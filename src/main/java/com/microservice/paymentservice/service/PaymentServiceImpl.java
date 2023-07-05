@@ -11,6 +11,8 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Log4j2
@@ -63,5 +65,29 @@ public class PaymentServiceImpl implements PaymentService{
         log.info("PaymentServiceImpl | getPaymentDetailsByOrderId | paymentResponse: {}", paymentResponse.toString());
 
         return paymentResponse;
+    }
+
+    @Override
+    public List<PaymentResponse> getAllPaymentDetails() {
+        log.info("PaymentServiceImpl | getAllPaymentDetails is called");
+
+        List<PaymentResponse> paymentResponses = new ArrayList<>();
+
+        List<TransactionDetails> transactionDetailsList = transactionDetailsRepository.findAll();
+
+        for (TransactionDetails transactionDetails : transactionDetailsList) {
+            PaymentResponse paymentResponse = PaymentResponse.builder()
+                    .paymentId(transactionDetails.getId())
+                    .paymentMode(paymentMode.valueOf(transactionDetails.getPaymentMode()))
+                    .paymentDate(transactionDetails.getPaymentDate())
+                    .orderId(transactionDetails.getOrderId())
+                    .status(transactionDetails.getPaymentStatus())
+                    .amount(transactionDetails.getAmount())
+                    .build();
+
+            paymentResponses.add(paymentResponse);
+        }
+
+        return paymentResponses;
     }
 }

@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/payment")
 @RequiredArgsConstructor
@@ -40,5 +42,15 @@ public class PaymentController {
                 paymentService.getPaymentDetailsByOrderId(orderId),
                 HttpStatus.OK
         );
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<PaymentResponse>> getAllPaymentDetails() {
+
+        log.info("PaymentController | getAllPaymentDetails is called");
+
+        List<PaymentResponse> paymentResponses = paymentService.getAllPaymentDetails();
+
+        return new ResponseEntity<>(paymentResponses, HttpStatus.OK);
     }
 }
