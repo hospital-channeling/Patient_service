@@ -17,5 +17,5 @@ public class PaymentResponse {
     private paymentMode paymentMode;
     private long amount;
     private Instant paymentDate;
-    private long orderId;
+    private long appointmentId;
 }

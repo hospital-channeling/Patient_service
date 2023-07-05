@@ -10,5 +10,5 @@ public interface PaymentService {
 
     List<PaymentResponse> getAllPaymentDetails();
 
-    PaymentResponse getPaymentDetailsByOrderId(long orderId);
+    PaymentResponse getPaymentDetailsByAppointmentId(long appointmentId);
 }

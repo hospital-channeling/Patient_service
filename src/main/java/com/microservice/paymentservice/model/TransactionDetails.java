@@ -19,8 +19,8 @@ public class TransactionDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    @Column(name = "ORDER_ID")
-    private long orderId;
+    @Column(name = "APPOINTMENT_ID")
+    private long appointmentId;
     @Column(name = "MODE")
     private String paymentMode;
 

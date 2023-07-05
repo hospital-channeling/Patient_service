@@ -31,15 +31,15 @@ public class PaymentController {
         );
     }
 
-    @GetMapping("/order/{orderId}")
-    public ResponseEntity<PaymentResponse> getPaymentDetailsByOrderId(@PathVariable long orderId) {
+    @GetMapping("/appointment/{appointmentId}")
+    public ResponseEntity<PaymentResponse> getPaymentDetailsByAppoinmentId(@PathVariable long appointmentId) {
 
         log.info("PaymentController | doPayment is called");
 
-        log.info("PaymentController | doPayment | orderId : " + orderId);
+        log.info("PaymentController | doPayment | orderId : " + appointmentId);
 
         return new ResponseEntity<>(
-                paymentService.getPaymentDetailsByOrderId(orderId),
+                paymentService.getPaymentDetailsByAppointmentId(appointmentId),
                 HttpStatus.OK
         );
     }

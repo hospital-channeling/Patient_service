@@ -29,7 +29,7 @@ public class PaymentServiceImpl implements PaymentService{
                 .paymentDate(Instant.now())
                 .paymentMode(paymentRequest.getPaymentMode().name())
                 .paymentStatus("SUCCESS")
-                .orderId(paymentRequest.getOrderId())
+                .appointmentId(paymentRequest.getAppointmentId())
                 .referenceNumber(paymentRequest.getReferenceNumber())
                 .amount(paymentRequest.getAmount())
                 .build();
@@ -41,13 +41,13 @@ public class PaymentServiceImpl implements PaymentService{
     }
 
     @Override
-    public PaymentResponse getPaymentDetailsByOrderId(long orderId) {
+    public PaymentResponse getPaymentDetailsByAppointmentId(long appointmentId) {
         log.info("PaymentServiceImpl | getPaymentDetailsByOrderId is called");
 
-        log.info("PaymentServiceImpl | getPaymentDetailsByOrderId | Getting payment details for the Order Id: {}", orderId);
+        log.info("PaymentServiceImpl | getPaymentDetailsByOrderId | Getting payment details for the Order Id: {}", appointmentId);
 
         TransactionDetails transactionDetails
-                = transactionDetailsRepository.findByOrderId(orderId)
+                = transactionDetailsRepository.findByAppointmentId(appointmentId)
                 .orElseThrow(() -> new PaymentServiceCustomException(
                         "TransactionDetails with given id not found",
                         "TRANSACTION_NOT_FOUND"));
@@ -57,7 +57,7 @@ public class PaymentServiceImpl implements PaymentService{
                 .paymentId(transactionDetails.getId())
                 .paymentMode(paymentMode.valueOf(transactionDetails.getPaymentMode()))
                 .paymentDate(transactionDetails.getPaymentDate())
-                .orderId(transactionDetails.getOrderId())
+                .appointmentId(transactionDetails.getAppointmentId())
                 .status(transactionDetails.getPaymentStatus())
                 .amount(transactionDetails.getAmount())
                 .build();
@@ -80,7 +80,7 @@ public class PaymentServiceImpl implements PaymentService{
                     .paymentId(transactionDetails.getId())
                     .paymentMode(paymentMode.valueOf(transactionDetails.getPaymentMode()))
                     .paymentDate(transactionDetails.getPaymentDate())
-                    .orderId(transactionDetails.getOrderId())
+                    .appointmentId(transactionDetails.getAppointmentId())
                     .status(transactionDetails.getPaymentStatus())
                     .amount(transactionDetails.getAmount())
                     .build();
